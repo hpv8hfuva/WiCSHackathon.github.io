@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style>
        /* Set the size of the div element that contains the map */
       #map {
@@ -10,7 +11,7 @@
     </style>
   </head>
   <body>
-    <h3>My Google Maps Demo</h3>
+    <h3>Community Service Finder</h3>
     <!--The div element for the map -->
     <div id="map"></div>
     <!--Load the API from the specified URL
@@ -20,6 +21,7 @@
     -->
 	Maximum Distance(mi): <input type="number" id = "a1" value = ""></input>
 	<button onclick = "initMap()">Find Locations</button>
+	<div id = "list-group" class = "list-group"></div>
 	
     <script defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA312PISXQj0-XhfENfcI4Dvw6E_8Mv5L4&libraries=geometry&callback=initMap">

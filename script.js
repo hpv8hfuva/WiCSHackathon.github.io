@@ -27,6 +27,7 @@ var humanity = [
 
 function initMap() {
   // The location of Uluru 
+  document.getElementById("list-group").innerHTML = "";
   x = navigator.geolocation;
   x.getCurrentPosition(success, failure);
   function success(position) {
@@ -42,22 +43,28 @@ function initMap() {
 
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     // your location
-    var marker = new google.maps.Marker({map:map, position:coords}) 
-
-
+	
+    var marker = new google.maps.Marker({map:map, 
+		position:coords, 
+		icon: {url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"}, 
+		title: "Me"});                           
 	
     // community listing locations
     geocoder = new google.maps.Geocoder();
     for(let i = 0; i < humanity.length; i++){
       var address = humanity[i].address;
       const contentString = `
-        <div>
-          <h1>${humanity[i].Name}</h1>
-          <h1>${humanity[i].address}</h1>
-          <h1>${humanity[i].phoneNumbers}</h1>
-          <h1>${humanity[i].email}</h1>
-          <h1>${humanity[i].website}</h1>
-        </div>;
+       <div class="card text-center">
+          <div class="card-header">
+            ${humanity[i].Name}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">${humanity[i].email}</h5>
+            <p class="card-text">${humanity[i].phoneNumbers}</p>\
+            <p class="card-text">${humanity[i].address}</p>
+            <a href="${humanity[i].website}" class="btn btn-primary">Click Me!</a>
+          </div> 
+        </div>
       `;
       console.log(contentString);
       const infoWindow = new google.maps.InfoWindow({
@@ -68,10 +75,12 @@ function initMap() {
 	  let distance = google.maps.geometry.spherical.computeDistanceBetween(results[0].geometry.location, coords)*0.000621371;
         if (status == 'OK') {  
 		  if (max_distance == "" || max_distance >= distance) {
+			  f(humanity[i]);
 	          const marks = new google.maps.Marker({
 	              map: map,
 	              position: results[0].geometry.location,
-	              title: "Uluru (Ayers Rock)",
+				  title: humanity[i].Name,
+	              icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
 	          });
 	          marks.addListener("click", () => {
 	            console.log("HIT");
@@ -99,4 +108,23 @@ function failure() {
     var marker = new google.maps.Marker({map:map, position:coords})
 } 
   
+function f(humanity){ 
+    let contentString = ``;
+    var address = humanity.address;
+    var name = humanity.Name;
+    var phone= humanity.phoneNumbers;
+    var mail=humanity.email;
+    var site =humanity.website; 
+    contentString += `
+    <a href="${site}" class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1" href="${site}">${name}</h5>
+      </div>
+      <p class="mb-1">${phone}</p>
+      <p class="mb-1">${mail}</p> 
+    `; 
+	
+    
+    document.getElementById("list-group").innerHTML += contentString;
+}
  
