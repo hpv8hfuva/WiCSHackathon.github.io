@@ -35,7 +35,15 @@ function initMap() {
   }
 
   function failure() {
+	window.alert("Unable to find your location.");
+	var coords = new google.maps.LatLng(0, 0);
 
+    var mapOptions = {
+        zoom: 5,
+        center: coords,
+    }
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    var marker = new google.maps.Marker({map:map, position:coords})
   } 
 }
     </script>
