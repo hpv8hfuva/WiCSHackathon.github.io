@@ -16,13 +16,35 @@
     <script>
 // Initialize and add the map
 function initMap() {
-  // The location of Uluru
-  var uluru = {lat: -25.344, lng: 131.036};
-  // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: uluru});
-  // The marker, positioned at Uluru
-  var marker = new google.maps.Marker({position: uluru, map: map});
+  // The location of Uluru 
+  x = navigator.geolocation;
+  x.getCurrentPosition(success, failure);
+  function success(position) {
+    var myLat = position.coords.latitude;
+    var myLong = position.coords.longitude;
+
+    var coords = new google.maps.LatLng(myLat, myLong);
+
+    var mapOptions = {
+        zoom: 5,
+        center: coords,
+    }
+
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    var marker = new google.maps.Marker({map:map, position:coords})
+  }
+
+  function failure() {
+	window.alert("Unable to find your location.");
+	var coords = new google.maps.LatLng(0, 0);
+
+    var mapOptions = {
+        zoom: 5,
+        center: coords,
+    }
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    var marker = new google.maps.Marker({map:map, position:coords})
+  } 
 }
     </script>
     <!--Load the API from the specified URL
@@ -31,7 +53,7 @@ function initMap() {
     * The callback parameter executes the initMap() function
     -->
     <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA312PISXQj0-XhfENfcI4Dvw6E_8Mv5L4&callback=initMap">
     </script>
   </body>
 </html>
