@@ -23,6 +23,8 @@ var humanity = [
       "website": "https://www.habitatnova.org/restore?utm_campaign=HFHI_ReStoreSearch&amp;utm_medium=referral&amp;utm_source=habitat.org"
   }
 ];
+
+
 function initMap() {
   // The location of Uluru 
   x = navigator.geolocation;
@@ -42,6 +44,8 @@ function initMap() {
     // your location
     var marker = new google.maps.Marker({map:map, position:coords}) 
 
+
+	
     // community listing locations
     geocoder = new google.maps.Geocoder();
     for(let i = 0; i < humanity.length; i++){
@@ -59,22 +63,27 @@ function initMap() {
       const infoWindow = new google.maps.InfoWindow({
         content: contentString,
       })
-      geocoder.geocode( { 'address': address}, function(results, status) {
+	  var max_distance = document.getElementById("a1").value;
+	  geocoder.geocode( { 'address': address}, function(results, status) {
+	  let distance = google.maps.geometry.spherical.computeDistanceBetween(results[0].geometry.location, coords)*0.000621371;
         if (status == 'OK') {  
-          const marks = new google.maps.Marker({
-              map: map,
-              position: results[0].geometry.location,
-              title: "Uluru (Ayers Rock)",
-          });
-          marks.addListener("click", () => {
-            console.log("HIT");
-            infoWindow.open(map, marks);
-          })
+		  if (max_distance == "" || max_distance >= distance) {
+	          const marks = new google.maps.Marker({
+	              map: map,
+	              position: results[0].geometry.location,
+	              title: "Uluru (Ayers Rock)",
+	          });
+	          marks.addListener("click", () => {
+	            console.log("HIT");
+	            infoWindow.open(map, marks);
+	          })
+		  }
         } else {
           alert('Geocode was not successful for the following reason: ' + status);
         }
       });
     }
+
   }
 }
 

@@ -18,8 +18,11 @@
     * The key parameter will contain your own API key (which is not needed for this tutorial)
     * The callback parameter executes the initMap() function
     -->
+	Maximum Distance(mi): <input type="number" id = "a1" value = ""></input>
+	<button onclick = "initMap()">Find Locations</button>
+	
     <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA312PISXQj0-XhfENfcI4Dvw6E_8Mv5L4&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA312PISXQj0-XhfENfcI4Dvw6E_8Mv5L4&libraries=geometry&callback=initMap">
     </script>
     <script src="humanity.json"></script>
     <script src = "script.js"></script>
