@@ -46,12 +46,30 @@ function initMap() {
     geocoder = new google.maps.Geocoder();
     for(let i = 0; i < humanity.length; i++){
       var address = humanity[i].address;
+      const contentString = `
+        <div>
+          <h1>${humanity[i].Name}</h1>
+          <h1>${humanity[i].address}</h1>
+          <h1>${humanity[i].phoneNumbers}</h1>
+          <h1>${humanity[i].email}</h1>
+          <h1>${humanity[i].website}</h1>
+        </div>;
+      `;
+      console.log(contentString);
+      const infoWindow = new google.maps.InfoWindow({
+        content: contentString,
+      })
       geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == 'OK') {  
-          let marks = new google.maps.Marker({
+          const marks = new google.maps.Marker({
               map: map,
-              position: results[0].geometry.location
+              position: results[0].geometry.location,
+              title: "Uluru (Ayers Rock)",
           });
+          marks.addListener("click", () => {
+            console.log("HIT");
+            infoWindow.open(map, marks);
+          })
         } else {
           alert('Geocode was not successful for the following reason: ' + status);
         }
