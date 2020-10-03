@@ -1,27 +1,59 @@
 var humanity = [
   {
-      "Name": "Northern Virginia Restore-Alexandria, HFH",
-      "address": "869 South Pickett St Alexandria, VA 22304",
-      "phoneNumbers":"7036706700", 
-      "email": "info@habitatnova.org",
-      "website": "https://www.habitatnova.org/restore/?utm_campaign=HFHI_ReStoreSearch&utm_medium=referral&utm_source=habitat.org"
-  },
+    "Name": "Northern Virginia Restore-Alexandria, HFH",
+    "address": "869 South Pickett St Alexandria, VA 22304",
+    "phoneNumbers":"7036706700", 
+    "email": "info@habitatnova.org",
+    "website": "https://www.habitatnova.org/"
+    },
 
-  {
-      "Name": "Northern Virginia ReStore-Chantilly, HFH",
-      "address": "4311 Walney Rd Chantilly, VA 20151",
-      "phoneNumbers":"7039533747", 
-      "email": "info@habitatnova.org",
-      "website": "https://www.habitatnova.org/restore?utm_campaign=HFHI_ReStoreSearch&amp;utm_medium=referral&amp;utm_source=habitat.org"
-  },
+    {
+        "Name": "Northern Virginia ReStore-Chantilly, HFH",
+        "address": "4311 Walney Rd Chantilly, VA 20151",
+        "phoneNumbers":"7039533747", 
+        "email": "info@habitatnova.org",
+        "website": "https://www.habitatnova.org/"
+    },
 
-  {
-      "Name": "Northern Virginia Restore-Herndon, HFH",
-      "address": "Spring Street Herndon, VA 20170",
-      "phoneNumbers":"5713060908", 
-      "email": "info@habitatnova.org",
-      "website": "https://www.habitatnova.org/restore?utm_campaign=HFHI_ReStoreSearch&amp;utm_medium=referral&amp;utm_source=habitat.org"
-  }
+    {
+        "Name": "Northern Virginia Restore-Herndon, HFH",
+        "address": "Spring Street Herndon, VA 20170",
+        "phoneNumbers":"5713060908", 
+        "email": "info@habitatnova.org",
+        "website": "https://www.habitatnova.org/"
+    },
+
+    {
+        "Name": "Charlottesville ReStore, HFH",
+        "address": "1221 Harris St, Charlottesville, VA 22903",
+        "phoneNumbers":"4342936331", 
+        "email": "drosensweig@cvillehabitat.org",
+        "website": "https://www.habitatnova.org/restore?utm_campaign=HFHI_ReStoreSearch&amp;utm_medium=referral&amp;utm_source=habitat.org"
+    },
+
+    {
+        "Name": "Richmond Metriopolition ReStore-Chesterfield, HFH",
+        "address": "1201 Mail Dr, Richmond, VA 23235",
+        "phoneNumbers":"8042994552", 
+        "email": "mkhuss@richmondhabitat.org",
+        "website": "www.richmondhabitat.org"
+    },
+
+    {
+        "Name": "Washington DC, HFH",
+        "address": "2115 Ward Ct NW Ste 100 Washington, US-DC 20037-1209",
+        "phoneNumbers":"2028824600", 
+        "email": "info@dchabitat.org",
+        "website": "www.dchabitat.org"
+    },
+
+    {
+        "Name": "Metro Maryland ReStore, HFH",
+        "address": "1029 East Gude Drive Rockville, MD 20850",
+        "phoneNumbers":"3019473304", 
+        "email": " info@habitatmm.org",
+        "website": "www.HabitatMM.org"
+    }
 ];
 
 
@@ -75,7 +107,7 @@ function initMap() {
 	  let distance = google.maps.geometry.spherical.computeDistanceBetween(results[0].geometry.location, coords)*0.000621371;
         if (status == 'OK') {  
 		  if (max_distance == "" || max_distance >= distance) {
-			  f(humanity[i]);
+			  addToListView(humanity[i]);
 	          const marks = new google.maps.Marker({
 	              map: map,
 	              position: results[0].geometry.location,
@@ -108,7 +140,7 @@ function failure() {
     var marker = new google.maps.Marker({map:map, position:coords})
 } 
   
-function f(humanity){ 
+function addToListView(humanity){ 
     let contentString = ``;
     var address = humanity.address;
     var name = humanity.Name;
