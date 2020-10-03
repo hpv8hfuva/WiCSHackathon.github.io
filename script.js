@@ -1,10 +1,10 @@
 var humanity = [
-  {
-    "Name": "Northern Virginia Restore-Alexandria, HFH",
-    "address": "869 South Pickett St Alexandria, VA 22304",
-    "phoneNumbers":"7036706700", 
-    "email": "info@habitatnova.org",
-    "website": "https://www.habitatnova.org/"
+    {
+      "Name": "Northern Virginia Restore-Alexandria, HFH",
+      "address": "869 South Pickett St Alexandria, VA 22304",
+      "phoneNumbers":"7036706700", 
+      "email": "info@habitatnova.org",
+      "website": "https://www.habitatnova.org/"
     },
 
     {
@@ -22,7 +22,6 @@ var humanity = [
         "email": "info@habitatnova.org",
         "website": "https://www.habitatnova.org/"
     },
-
     {
         "Name": "Charlottesville ReStore, HFH",
         "address": "1221 Harris St, Charlottesville, VA 22903",
@@ -53,7 +52,23 @@ var humanity = [
         "phoneNumbers":"3019473304", 
         "email": " info@habitatmm.org",
         "website": "www.HabitatMM.org"
-    }
+    },
+	
+	{
+        "Name": "Staunton-Augusta-Waynesboro, HFH",
+        "address": "434 Richmond Ave, Staunton, VA 24401",
+        "phoneNumbers":"5408861944", 
+        "email": " info@habitatmm.org",
+        "website": "http://www.sawhfh.org/"
+    },
+	
+	{
+        "Name": "Central Valley, HFH",
+        "address": "205 Dry River Rd, Bridgewater, VA 22812",
+        "phoneNumbers":"5408286288", 
+        "email": " info@habitatmm.org",
+        "website": "http://centralvalleyhabitat.org/"		
+	}
 ];
 
 
@@ -69,7 +84,7 @@ function initMap() {
     var coords = new google.maps.LatLng(myLat, myLong);
 
     var mapOptions = {
-        zoom: 5,
+        zoom: 8,
         center: coords,
     }
 
@@ -97,29 +112,28 @@ function initMap() {
             <a href="${humanity[i].website}" class="btn btn-primary">Click Me!</a>
           </div> 
         </div>
-      `;
-      console.log(contentString);
+      `; 
       const infoWindow = new google.maps.InfoWindow({
         content: contentString,
-      })
+      }) 
 	  var max_distance = document.getElementById("a1").value;
 	  geocoder.geocode( { 'address': address}, function(results, status) {
-	  let distance = google.maps.geometry.spherical.computeDistanceBetween(results[0].geometry.location, coords)*0.000621371;
         if (status == 'OK') {  
-		  if (max_distance == "" || max_distance >= distance) {
-			  addToListView(humanity[i]);
-	          const marks = new google.maps.Marker({
-	              map: map,
-	              position: results[0].geometry.location,
-				  title: humanity[i].Name,
-	              icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
-	          });
-	          marks.addListener("click", () => {
-	            console.log("HIT");
-	            infoWindow.open(map, marks);
-	          })
-		  }
-        } else {
+          let distance = google.maps.geometry.spherical.computeDistanceBetween(results[0].geometry.location, coords)*0.000621371;
+          if (max_distance == "" || parseFloat(max_distance) >= distance) {
+            addToListView(humanity[i]);
+                const marks = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+              title: humanity[i].Name,
+                    icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
+                });
+                marks.addListener("click", () => { 
+                  infoWindow.open(map, marks);
+                })
+		      }
+        }
+          else {
           alert('Geocode was not successful for the following reason: ' + status);
         }
       });
@@ -154,9 +168,7 @@ function addToListView(humanity){
       </div>
       <p class="mb-1">${phone}</p>
       <p class="mb-1">${mail}</p> 
-    `; 
-	
-    
+    `;  
     document.getElementById("list-group").innerHTML += contentString;
 }
  
